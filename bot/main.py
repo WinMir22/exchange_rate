@@ -5,6 +5,8 @@ from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
+from bot.config.configfile import Config, load_config
+
 logger = logging.getLogger(__name__)
 
 async def main() -> None:
@@ -15,8 +17,8 @@ async def main() -> None:
     )
     config: Config = load_config()
     logger.info("Конфиг загружен")
-    engine = create_async_engine(get_url())
-    sessionmaker = async_sessionmaker(engine)
+    # engine = create_async_engine(get_url())
+    # sessionmaker = async_sessionmaker(engine)
     logger.info("Соединение с базой данных установлено")
     bot = Bot(
         token=config.tg_bot.token,
