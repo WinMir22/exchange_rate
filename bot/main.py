@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from bot.config.configfile import Config, load_config, get_url
 from bot.handlers import user_handlers
-from bot.middlewares.DBSessionMiddleware import DbSessionMiddleware
+from bot.middlewares.DBSessionMiddleware import DBSessionMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ async def main() -> None:
     # dp.include_router(admin_handlers.router)
     # dp.include_router(other_handlers.router)
     logger.info("Роутеры подключены")
-    dp.update.outer_middleware(DbSessionMiddleware(sessionmaker))
+    dp.update.outer_middleware(DBSessionMiddleware(sessionmaker))
     logger.info("Миддлвари подключены")
     await dp.start_polling(bot)
 

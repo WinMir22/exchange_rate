@@ -8,7 +8,7 @@ from bot.database.statements.insert import add_user
 from bot.database.statements.select import check_user
 
 
-class DbSessionMiddleware(BaseMiddleware):
+class DBSessionMiddleware(BaseMiddleware):
     def __init__(self, session_pool: async_sessionmaker):
         super().__init__()
         self.session_pool = session_pool
