@@ -4,11 +4,14 @@ import logging
 from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from bot.config.configfile import Config, load_config
+from bot.config.configfile import Config, load_config, get_url
 from bot.handlers import user_handlers
+from bot.middlewares.DBSessionMiddleware import DbSessionMiddleware
 
 logger = logging.getLogger(__name__)
+
 
 async def main() -> None:
     logging.basicConfig(
@@ -18,8 +21,8 @@ async def main() -> None:
     )
     config: Config = load_config()
     logger.info("Конфиг загружен")
-    # engine = create_async_engine(get_url())
-    # sessionmaker = async_sessionmaker(engine)
+    engine = create_async_engine(get_url())
+    sessionmaker = async_sessionmaker(engine)
     logger.info("Соединение с базой данных установлено")
     bot = Bot(
         token=config.tg_bot.token,
@@ -29,9 +32,9 @@ async def main() -> None:
     dp.include_router(user_handlers.router)
     # dp.include_router(admin_handlers.router)
     # dp.include_router(other_handlers.router)
-    # logger.info("Роутеры подключены")
-    # dp.update.outer_middleware(DbSessionMiddleware(sessionmaker))
-    # logger.info("Миддлвари подключены")
+    logger.info("Роутеры подключены")
+    dp.update.outer_middleware(DbSessionMiddleware(sessionmaker))
+    logger.info("Миддлвари подключены")
     await dp.start_polling(bot)
 
 
