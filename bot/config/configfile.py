@@ -14,8 +14,6 @@ class DatabaseConfig:
 @dataclass
 class TgBot:
     token: str
-    winner_id: int
-    dima_id: int
 
 
 @dataclass
@@ -31,9 +29,7 @@ def load_config(path: str | None = None) -> Config:
 
     return Config(
         tg_bot=TgBot(
-            token=env('BOT_TOKEN'),
-            winner_id=int(env('WINNER_ID')),
-            dima_id=int(env('DIMA_ID'))
+            token=env('BOT_TOKEN')
         ),
         db=DatabaseConfig(
             database=env('DATABASE'),
