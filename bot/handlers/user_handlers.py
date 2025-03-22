@@ -20,3 +20,4 @@ async def start_command(message: Message):
 async def help_command(message: Message):
     name, user_id = message.from_user.full_name, message.from_user.id
     await message.answer(lexicon["help_command"])
+    logger.info(f"Пользователь {name}({user_id}) вызвал команду хелп")
