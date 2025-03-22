@@ -6,6 +6,7 @@ from bot.lexicon.lexicon_ru import lexicon
 
 router = Router()
 
+
 @router.message(CommandStart())
 async def start_command(message: Message):
     await message.answer(lexicon["start_command"])
