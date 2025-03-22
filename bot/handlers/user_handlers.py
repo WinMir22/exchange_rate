@@ -5,7 +5,7 @@ from aiogram.types import Message
 from bot.lexicon.lexicon_ru import lexicon
 
 router = Router()
-
+logger = logging.getLogger(__name__)
 
 @router.message(CommandStart())
 async def start_command(message: Message):
