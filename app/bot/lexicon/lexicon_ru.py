@@ -3,4 +3,5 @@ lexicon = {
     "\nОзнакомиться с командами можно, написав /help.",
     "help_command": "/help - Вызов этого меню\n/exchange_rate - Узнать курс валюты",
     "exchange_rate_command": "Введи три буквы - обозначения валюты. Например EUR, USD",
+    "exchange_rate_answer_command": "Желаешь узнать еще? Введи команду /exchange_rate"
 }
