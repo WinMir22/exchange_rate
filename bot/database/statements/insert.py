@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.models import StickersBlocklist, UsersTable
+from bot.database.models import UsersTable
 
 
 logger = logging.getLogger(__name__)
