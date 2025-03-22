@@ -6,5 +6,5 @@ async def get_exchange_rate(code: str) -> str:  # noqa
     if answer.status_code == 200:
         answer = answer.json()
         answer = answer["Valute"][code]["Value"]
-        return "На данный момент эта валюта составляет" + str(answer) + "рублей"
+        return "На данный момент эта валюта составляет " + str(answer) + " рублей"
     return "Извините, вы ввели неправильный код"
