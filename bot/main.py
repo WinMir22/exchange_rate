@@ -25,7 +25,7 @@ async def main() -> None:
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher()
-    # dp.include_router(user_handlers.router)
+    dp.include_router(user_handlers.router)
     # dp.include_router(admin_handlers.router)
     # dp.include_router(other_handlers.router)
     # logger.info("Роутеры подключены")
