@@ -39,6 +39,13 @@ async def get_exchange_rate_command(message: Message, state: FSMContext):
 @router.message(FSMExchangeRate.get_code_for_check)
 async def give_exchange_rate_command(message: Message, state: FSMContext):
     name, user_id = message.from_user.full_name, message.from_user.id
-    await state.clear()
-    await message.answer(await get_exchange_rate(message.text))
-    logger.info(f"Пользователь {name}({user_id}) узнал валюту {message.text}")
+    try:
+        rate = await get_exchange_rate(message.text)
+        await state.clear()
+        await message.answer(rate)
+        logger.info(f"Пользователь {name}({user_id}) узнал валюту {message.text}")
+    except KeyError:
+        await message.answer(lexicon["exchange_rate_error"])
+        logger.info(
+            f"Пользователь {name}({user_id}) попытался узнал валюту {message.text}"
+        )
