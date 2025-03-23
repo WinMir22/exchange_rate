@@ -53,7 +53,7 @@ async def give_exchange_rate_command(message: Message, state: FSMContext):
 
 
 @router.callback_query(F.data == "more_rate")
-async def give_exchange_rate_command_but(
+async def get_exchange_rate_command_but(
     callback_query: CallbackQuery, state: FSMContext
 ):
     await give_exchange_rate_command(message=callback_query.message, state=state)
