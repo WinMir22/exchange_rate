@@ -45,7 +45,7 @@ class DBSessionMiddleware(BaseMiddleware):
                     id=event.callback_query.from_user.id,
                     full_name=event.callback_query.from_user.full_name,
                     username=event.callback_query.from_user.username,
-                    session=self.session_pool,
+                    session=session,
                 )
                 data["session"] = session
                 return await handler(event, data)
