@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
-LEXICON = {}
+LEXICON = {"more_rate": "Узнать еще курс валют"}
 
 
 # Функция для формирования инлайн-клавиатуры на лету

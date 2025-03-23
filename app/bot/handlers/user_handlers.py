@@ -2,8 +2,9 @@ import logging
 from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 
+from app.bot.keyboards.user_keyboards import more_rate_kb
 from app.bot.lexicon.lexicon_ru import lexicon
 from app.bot.states.states import FSMExchangeRate
 from app.services.https_requests import get_exchange_rate
@@ -42,7 +43,7 @@ async def give_exchange_rate_command(message: Message, state: FSMContext):
     try:
         rate = await get_exchange_rate(message.text)
         await state.clear()
-        await message.answer(rate)
+        await message.answer(text=rate, reply_markup=more_rate_kb)
         logger.info(f"Пользователь {name}({user_id}) узнал валюту {message.text}")
     except KeyError:
         await message.answer(lexicon["exchange_rate_error"])
@@ -52,6 +53,8 @@ async def give_exchange_rate_command(message: Message, state: FSMContext):
 
 
 @router.callback_query(F.data == "more_rate")
-async def give_exchange_rate_command_but(callback_query: CallbackQuery, state: FSMContext):
+async def give_exchange_rate_command_but(
+    callback_query: CallbackQuery, state: FSMContext
+):
     await give_exchange_rate_command(message=callback_query.message, state=state)
     await callback_query.answer()
