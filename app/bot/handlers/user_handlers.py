@@ -1,7 +1,8 @@
 import logging
 from aiogram import Router, F
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart, Command, StateFilter
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import default_state
 from aiogram.types import Message, CallbackQuery
 
 from app.bot.keyboards.user_keyboards import more_rate_kb
@@ -23,6 +24,21 @@ async def start_command(message: Message, user_id, full_name):
 async def help_command(message: Message, user_id: int, full_name: str):
     await message.answer(lexicon["help_command"])
     logger.info(f"Пользователь {full_name}({user_id}) вызвал команду хелп")
+
+
+@router.message(Command("cancel"), StateFilter(default_state))
+async def not_cancel_command(message: Message, user_id: int, full_name: str):
+    await message.answer(lexicon["not_cancel_command"])
+    logger.info(f"Пользователь {full_name}({user_id}) попытался выйти из состояния")
+
+
+@router.message(Command("cancel"))
+async def cancel_command(
+    message: Message, state: FSMContext, user_id: int, full_name: str
+):
+    await state.clear()
+    await message.answer(lexicon["cancel_command"])
+    logger.info(f"Пользователь {full_name}({user_id}) вышел из состояния")
 
 
 @router.message(Command("exchange_rate"))

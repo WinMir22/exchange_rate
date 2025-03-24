@@ -6,4 +6,6 @@ lexicon = {
     "exchange_rate_command": "Введите три буквы - обозначения валюты. Например EUR, USD",
     "exchange_rate_error": "Вы ввели не существующий код. Eсли хотите закончить, введите /cancel",
     "exchange_rate_answer_command": "Желаете узнать еще? Введите команду /exchange_rate",
+    "not_cancel_command": "Вам нечего отменять",
+    "cancel_command": "Вы отменили ввод валют"
 }
