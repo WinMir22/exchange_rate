@@ -14,47 +14,52 @@ logger = logging.getLogger(__name__)
 
 
 @router.message(CommandStart())
-async def start_command(message: Message):
-    name, user_id = message.from_user.full_name, message.from_user.id
+async def start_command(message: Message, user_id, full_name):
     await message.answer(lexicon["start_command"])
-    logger.info(f"Пользователь {name}({user_id}) запустил бота")
+    logger.info(f"Пользователь {full_name}({user_id}) запустил бота")
 
 
 @router.message(Command("help"))
-async def help_command(message: Message):
-    name, user_id = message.from_user.full_name, message.from_user.id
+async def help_command(message: Message, user_id: int, full_name: str):
     await message.answer(lexicon["help_command"])
-    logger.info(f"Пользователь {name}({user_id}) вызвал команду хелп")
+    logger.info(f"Пользователь {full_name}({user_id}) вызвал команду хелп")
 
 
 @router.message(Command("exchange_rate"))
-async def get_exchange_rate_command(message: Message, state: FSMContext):
-    name, user_id = message.from_user.full_name, message.from_user.id
+async def get_exchange_rate_command(
+    message: Message, state: FSMContext, full_name: str, user_id: int
+):
     await state.set_state(state=FSMExchangeRate.get_code_for_check)
     await message.answer(lexicon["exchange_rate_command"])
     logger.info(
-        f"Пользователь {name}({user_id}) перешёл в состояние get_code_for_check"
+        f"Пользователь {full_name}({user_id}) перешёл в состояние get_code_for_check"
     )
 
 
 @router.message(FSMExchangeRate.get_code_for_check)
-async def give_exchange_rate_command(message: Message, state: FSMContext):
-    name, user_id = message.from_user.full_name, message.from_user.id
+async def give_exchange_rate_command(
+    message: Message, state: FSMContext, user_id: int, full_name: str
+):
     try:
         rate = await get_exchange_rate(message.text)
         await state.clear()
         await message.answer(text=rate, reply_markup=more_rate_kb)
-        logger.info(f"Пользователь {name}({user_id}) узнал валюту {message.text}")
+        logger.info(f"Пользователь {full_name}({user_id}) узнал валюту {message.text}")
     except KeyError:
         await message.answer(lexicon["exchange_rate_error"])
         logger.info(
-            f"Пользователь {name}({user_id}) попытался узнал валюту {message.text}"
+            f"Пользователь {full_name}({user_id}) попытался узнал валюту {message.text}"
         )
 
 
 @router.callback_query(F.data == "more_rate")
 async def get_exchange_rate_command_but(
-    callback_query: CallbackQuery, state: FSMContext
+    callback_query: CallbackQuery, state: FSMContext, user_id: int, full_name: str
 ):
-    await give_exchange_rate_command(message=callback_query.message, state=state)
+    await get_exchange_rate_command(
+        message=callback_query.message,
+        state=state,
+        user_id=user_id,
+        full_name=full_name,
+    )
     await callback_query.answer()
