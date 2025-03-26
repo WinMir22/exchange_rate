@@ -9,4 +9,5 @@ lexicon = {
     "exchange_rate_answer_command": "Эта валюта составляет {} {}",
     "not_cancel_command": "Вам нечего отменять",
     "cancel_command": "Вы отменили ввод валют",
+    "exchange_rate_but": "Узнать курс валюты"
 }
