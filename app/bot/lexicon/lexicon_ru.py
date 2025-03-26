@@ -6,7 +6,7 @@ lexicon = {
     "exchange_rate_command": "Введите три буквы - обозначения валюты. Например EUR, USD",
     "get_code_for_check_state": "Хорошо. Теперь введите валюту для перевода",
     "exchange_rate_error": "Вы ввели не существующий код. Eсли хотите закончить, введите /cancel",
-    "exchange_rate_answer_command": "Желаете узнать еще? Введите команду /exchange_rate",
+    "exchange_rate_answer_command": "Эта валюта составляет {} {}",
     "not_cancel_command": "Вам нечего отменять",
-    "cancel_command": "Вы отменили ввод валют"
+    "cancel_command": "Вы отменили ввод валют",
 }
