@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.bot.database.statements.insert import add_user
 from app.bot.database.statements.select import check_user
+from app.services.functions import get_from_user
 
 
 class MainMiddleware(BaseMiddleware):
@@ -29,8 +30,7 @@ class MainMiddleware(BaseMiddleware):
         async with self.session_pool() as session:
             await add_user(
                 check=await check_user(
-                    user_id=user.id,
-                    event=type_event,
+                    type_event=type_event,
                     session=session,
                 ),
                 id=user.id,
