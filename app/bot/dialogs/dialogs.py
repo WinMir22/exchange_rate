@@ -11,7 +11,7 @@ from aiogram_dialog.widgets.kbd import (
 from aiogram_dialog.widgets.text import Const, Format
 
 from app.bot.dialogs.dialog_handlers import check_rate, give_rate
-from app.bot.dialogs.dialogs_getters import rate_getter
+from app.bot.dialogs.dialogs_getters import rate_getter, to_usd_getter
 from app.bot.dialogs.dialogs_states import StartSG, OneRateSG
 from app.bot.lexicon.lexicon_ru import lexicon
 from app.services.exchange_rate_services.list_of_rates import rates
@@ -51,7 +51,7 @@ one_rate_dialog = Dialog(
         state=OneRateSG.get_rate,
     ),
     Window(
-        Const(lexicon["get_code_for_check_state"]),
+        Format(lexicon["get_code_for_check_state"]),
         ScrollingGroup(
             Select(
                 Format("{item}"),
@@ -65,6 +65,7 @@ one_rate_dialog = Dialog(
             id="all_rates",
         ),
         Back(Const(lexicon["back_to_main_menu"])),
+        getter=to_usd_getter,
         state=OneRateSG.give_rate,
     ),
     Window(
