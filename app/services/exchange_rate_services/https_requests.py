@@ -10,3 +10,4 @@ async def get_exchange_rate(check_code: str, give_code: str) -> str:  # noqa
         answer = answer.json()
         answer = answer[check_code.lower()][give_code.lower()]
         return answer
+    return ''
