@@ -7,7 +7,7 @@ from aiogram_dialog import setup_dialogs
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.bot.config import Config, load_config, get_url
-from app.bot.dialogs import start_dialog
+from app.bot.dialogs import start_dialog, one_rate_dialog
 from app.bot.handlers import user_handlers
 from app.bot.middlewares.MainMiddleware import MainMiddleware
 
@@ -34,6 +34,7 @@ async def main() -> None:
     # dp.include_router(admin_handlers.router)
     # dp.include_router(other_handlers.router)
     dp.include_router(start_dialog)
+    dp.include_router(one_rate_dialog)
     logger.info("Роутеры подключены")
     dp.update.outer_middleware(MainMiddleware(sessionmaker))
     logger.info("Миддлвари подключены")

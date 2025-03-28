@@ -6,4 +6,6 @@ class StartSG(StatesGroup):
 
 
 class OneRateSG(StatesGroup):
-    main = State()
+    get_rate = State()
+    give_rate = State()
+    get_result = State()
