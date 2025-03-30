@@ -28,7 +28,7 @@ async def main() -> None:
     engine = create_async_engine(get_url())
     sessionmaker = async_sessionmaker(engine)
     logger.info("Соединение с базой данных установлено")
-    redis = Redis(host="localhost")
+    redis = Redis(host="localhost", decode_responses=True)
     storage = RedisStorage(
         redis=redis, key_builder=DefaultKeyBuilder(with_destiny=True)
     )
