@@ -3,6 +3,9 @@ import logging
 from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from aiogram.fsm.storage.base import DefaultKeyBuilder
+from aiogram.fsm.storage.redis import RedisStorage
+from redis.asyncio import Redis
 from aiogram_dialog import setup_dialogs
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
@@ -25,11 +28,15 @@ async def main() -> None:
     engine = create_async_engine(get_url())
     sessionmaker = async_sessionmaker(engine)
     logger.info("Соединение с базой данных установлено")
+    redis = Redis(host="localhost")
+    storage = RedisStorage(
+        redis=redis, key_builder=DefaultKeyBuilder(with_destiny=True)
+    )
     bot = Bot(
         token=config.tg_bot.token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
-    dp = Dispatcher()
+    dp = Dispatcher(storage=storage)
     dp.include_router(user_handlers.router)
     # dp.include_router(admin_handlers.router)
     # dp.include_router(other_handlers.router)
