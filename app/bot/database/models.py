@@ -17,8 +17,8 @@ class UsersTable(Base):
     )
     full_name: Mapped[str | None]
     username: Mapped[str | None]
-    currencies: Mapped[List[str]] = mapped_column(
-        server_default="{" + ",".join(rates) + "}"
+    currencies: Mapped = mapped_column(
+        ARRAY(String), server_default="{" + ",".join(rates) + "}"
     )
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
