@@ -38,8 +38,6 @@ async def main() -> None:
     )
     dp = Dispatcher(storage=storage)
     dp.include_router(user_handlers.router)
-    # dp.include_router(admin_handlers.router)
-    # dp.include_router(other_handlers.router)
     dp.include_router(start_dialog)
     dp.include_router(one_rate_dialog)
     logger.info("Роутеры подключены")
