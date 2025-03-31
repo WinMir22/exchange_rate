@@ -17,7 +17,7 @@ class UsersTable(Base):
     )
     full_name: Mapped[str | None]
     username: Mapped[str | None]
-    currencies: Mapped[list] = mapped_column(server_default=rates)
+    currencies: Mapped[List[str]] = mapped_column(server_default=rates)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         server_default=func.now(), onupdate=datetime.now()
