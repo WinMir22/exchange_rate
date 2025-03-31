@@ -4,8 +4,8 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from app.bot.database.statements.insert import add_user
-from app.bot.database.statements.select import check_user
+from app.bot.database import add_user
+from app.bot.database import check_user
 
 
 class MainMiddleware(BaseMiddleware):
