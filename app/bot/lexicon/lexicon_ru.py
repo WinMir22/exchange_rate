@@ -4,7 +4,7 @@ lexicon = {
     "help_command": "/help - Вызов этого меню\n/exchange_rate - Узнать курс валюты"
     "\n/cancel - Отменить ввод валют",
     "exchange_rate_command": "Введите три буквы - обозначения валюты. Например EUR, USD",
-    "get_code_for_check_state": "{check} стоит {result} usd. Выберите кнопку ниже, если хотите перевести "
+    "get_code_for_check_state": "{check} стоит {result} USD. Выберите кнопку ниже, если хотите перевести "
     "в другую валюту.",
     "exchange_rate_error": "Вы ввели не существующий код. Eсли хотите закончить, введите /cancel",
     "exchange_rate_answer_command": "Эта валюта составляет {} {}",
