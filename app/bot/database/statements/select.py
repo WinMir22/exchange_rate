@@ -13,6 +13,7 @@ async def check_user(
         statement = select(UsersTable).where(
             UsersTable.user_id == type_event.from_user.id
         )
-        check = True if await session.scalar(statement) is None else False
+        async with session:
+            check = True if await session.scalar(statement) is None else False
         return check
     return False
