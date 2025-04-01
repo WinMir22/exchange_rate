@@ -9,3 +9,7 @@ class OneRateSG(StatesGroup):
     get_rate = State()
     give_rate = State()
     get_result = State()
+
+
+class FavoriteSG(StatesGroup):
+    main = State()

@@ -1,5 +1,7 @@
 from datetime import datetime
-from sqlalchemy import func, BigInteger
+from typing import List
+
+from sqlalchemy import func, BigInteger, ARRAY, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.services.exchange_rate_services.list_of_rates import rates
@@ -17,7 +19,7 @@ class UsersTable(Base):
     )
     full_name: Mapped[str | None]
     username: Mapped[str | None]
-    currencies: Mapped = mapped_column(
+    currencies: Mapped[List[str]] = mapped_column(
         ARRAY(String), server_default="{" + ",".join(rates) + "}"
     )
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
