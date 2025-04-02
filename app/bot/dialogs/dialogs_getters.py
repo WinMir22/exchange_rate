@@ -15,6 +15,8 @@ async def to_usd_getter(
 ):
     state: FSMContext = dialog_manager.middleware_data["state"]
     data = await state.get_data()
+    if data["check_rate"].startswith("✅"):
+        data["check_rate"] = data["check_rate"][2:]
     result = await get_exchange_rate(check_code=data["check_rate"], give_code="usd")
     return {
         "rates": await get_currencies(event_from_user.id, session=session),
@@ -31,14 +33,18 @@ async def rate_getter(
 ):
     state: FSMContext = dialog_manager.middleware_data["state"]
     data = await state.get_data()
+    if data["check_rate"].startswith("✅"):
+        data["check_rate"] = data["check_rate"][2:]
+    if data["give_rate"].startswith("✅"):
+        data["give_rate"] = data["give_rate"][2:]
+    if data["value"].startswith("✅"):
+        data["value"] = data["value"][2:]
     result = await get_exchange_rate(
         check_code=data["check_rate"], give_code=data["give_rate"]
     )
     return {
         "result": result,
-        "rates": await get_currencies(event_from_user.id, session=session),
         "value": data["value"],
-        "check": data["check_rate"],
     }
 
 
