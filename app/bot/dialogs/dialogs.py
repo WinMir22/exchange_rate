@@ -1,12 +1,12 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.kbd import (
-    Row,
     Button,
     Start,
     Cancel,
     ScrollingGroup,
     Back,
     Select,
+    Column,
 )
 from aiogram_dialog.widgets.text import Const, Format
 
@@ -14,12 +14,11 @@ from app.bot.dialogs.dialog_handlers import check_rate, favorite_handler, give_r
 from app.bot.dialogs.dialogs_getters import rate_getter, to_usd_getter, rates_getter
 from app.bot.dialogs.dialogs_states import StartSG, OneRateSG, FavoriteSG
 from app.bot.lexicon.lexicon_ru import lexicon
-from app.services.exchange_rate_services.list_of_rates import rates
 
 start_dialog = Dialog(
     Window(
         Const(lexicon["start_command"]),
-        Row(
+        Column(
             Start(
                 Const(lexicon["exchange_rate_but"]),
                 id="rate_one",
