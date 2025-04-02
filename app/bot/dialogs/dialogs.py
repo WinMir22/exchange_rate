@@ -24,8 +24,7 @@ start_dialog = Dialog(
                 id="rate_one",
                 state=OneRateSG.get_rate,
             ),
-            Start(Const("Избранное"), id="favorite", state=FavoriteSG.main),
-            Button(Const(lexicon["exchange_rate_but2"]), id="rate_many"),
+            Start(Const("Избранное"), id="favorite", state=FavoriteSG.main)
         ),
         state=StartSG.start,
     )
