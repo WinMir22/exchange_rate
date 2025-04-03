@@ -37,7 +37,7 @@ async def main() -> None:
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher(storage=storage)
-    dp.include_router(user_handlers.router)
+    dp.include_router(start.router)
     dp.include_router(start_dialog)
     dp.include_router(one_rate_dialog)
     dp.include_router(favorite_dialog)
