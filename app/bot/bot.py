@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.bot.config import Config, load_config, get_url
 from app.bot.dialogs import start_dialog, one_rate_dialog, favorite_dialog
-from app.bot.handlers import user_handlers
+from app.bot.handlers import start
 from app.bot.middlewares.MainMiddleware import MainMiddleware
 
 logger = logging.getLogger(__name__)
