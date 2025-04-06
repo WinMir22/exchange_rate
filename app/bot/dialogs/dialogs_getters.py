@@ -13,8 +13,7 @@ async def to_usd_getter(
     dialog_manager: DialogManager,
     **kwargs
 ):
-    state: FSMContext = dialog_manager.middleware_data["state"]
-    data = await state.get_data()
+    data = dialog_manager.dialog_data
     if data["check_rate"].startswith("✅"):
         data["check_rate"] = data["check_rate"][2:]
     result = await get_exchange_rate(check_code=data["check_rate"], give_code="usd")
@@ -31,8 +30,7 @@ async def rate_getter(
     dialog_manager: DialogManager,
     **kwargs
 ):
-    state: FSMContext = dialog_manager.middleware_data["state"]
-    data = await state.get_data()
+    data = dialog_manager.dialog_data
     if data["check_rate"].startswith("✅"):
         data["check_rate"] = data["check_rate"][2:]
     if data["give_rate"].startswith("✅"):

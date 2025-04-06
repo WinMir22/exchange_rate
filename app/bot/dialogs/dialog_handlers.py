@@ -14,16 +14,16 @@ async def check_rate(
     manager: DialogManager,
     item_id: str,
 ):
-    state: FSMContext = manager.middleware_data["state"]
-    await state.update_data(check_rate=item_id)
+    data = manager.dialog_data
+    data["check_rate"] = item_id
     await manager.next()
 
 
 async def give_rate(
     callback: CallbackQuery, select: Select, manager: DialogManager, item_id: str
 ):
-    state: FSMContext = manager.middleware_data["state"]
-    await state.update_data(give_rate=item_id, value=item_id)
+    data = manager.dialog_data
+    data["give_rate"], data["value"] = item_id, item_id
     await manager.next()
 
 
