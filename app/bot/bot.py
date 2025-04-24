@@ -23,26 +23,35 @@ async def main() -> None:
         format="%(filename)s:%(lineno)d #%(levelname)-8s "
         "[%(asctime)s] - %(name)s - %(message)s",
     )
+
     config: Config = load_config()
     logger.info("Конфиг загружен")
+
     engine = create_async_engine(get_url())
     sessionmaker = async_sessionmaker(engine)
     logger.info("Соединение с базой данных установлено")
+
     redis = Redis(host="localhost", decode_responses=True)
     storage = RedisStorage(
         redis=redis, key_builder=DefaultKeyBuilder(with_destiny=True)
     )
+
     bot = Bot(
         token=config.tg_bot.token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
+
     dp = Dispatcher(storage=storage)
+
     dp.include_router(start.router)
     dp.include_router(start_dialog)
     dp.include_router(one_rate_dialog)
     dp.include_router(favorite_dialog)
-    logger.info("Роутеры подключены")
-    dp.update.outer_middleware(MainMiddleware(sessionmaker))
-    logger.info("Миддлвари подключены")
     setup_dialogs(dp)
+    logger.info("Роутеры подключены")
+
+    dp.message.outer_middleware(MainMiddleware(sessionmaker))
+    dp.callback_query.outer_middleware(MainMiddleware(sessionmaker))
+    logger.info("Миддлвари подключены")
+
     await dp.start_polling(bot)

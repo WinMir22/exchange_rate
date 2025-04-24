@@ -4,8 +4,7 @@ from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bot.database.statements.select import get_currencies
-from app.bot.database.statements.update import update_currencies
+from app.bot.database.db_class import DatabaseCRUD
 
 
 async def check_rate(
@@ -30,8 +29,8 @@ async def give_rate(
 async def favorite_handler(
     call: CallbackQuery, select: Select, mng: DialogManager, item_id: str
 ) -> None:
-    session: AsyncSession = mng.middleware_data["session"]
-    rate = await get_currencies(call.from_user.id, session=session)
+    database_crud: DatabaseCRUD = mng.middleware_data["database_crud"]
+    rate = await database_crud.get_currencies(call.from_user.id)
 
     if item_id.startswith("✅"):
         element = rate.pop(rate.index(item_id))
@@ -51,4 +50,4 @@ async def favorite_handler(
         unstarred = [s for s in rate if not s.startswith("✅")]
         new_rate = starred + unstarred
 
-    await update_currencies(call.from_user.id, new_rate, session)
+    await database_crud.update_currencies(call.from_user.id, new_rate)
