@@ -17,7 +17,7 @@ async def check_rate(
 
 
 async def give_rate(
-    query: CallbackQuery, slct: Select, manager: DialogManager, item_id: str
+    query: CallbackQuery, select: Select, manager: DialogManager, item_id: str
 ) -> None:
     data = manager.dialog_data
     data["give_rate"], data["value"] = item_id, item_id

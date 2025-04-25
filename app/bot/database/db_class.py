@@ -28,7 +28,7 @@ class DatabaseCRUD:
             statement = select(UsersTable).where(
                 UsersTable.user_id == event.from_user.id
             )
-            check = not bool(await self.session.execute(statement))
+            check = True if await self.session.scalar(statement) is None else False
             return check
         return False
 

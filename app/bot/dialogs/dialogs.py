@@ -11,16 +11,8 @@ from aiogram_dialog.widgets.kbd import (
 )
 from aiogram_dialog.widgets.text import Const, Format
 
-from app.bot.dialogs.dialog_handlers import (
-    check_rate,
-    favorite_handler,
-    give_rate
-    )
-from app.bot.dialogs.dialogs_getters import (
-    rate_getter,
-    to_usd_getter,
-    rates_getter
-    )
+from app.bot.dialogs.dialog_handlers import check_rate, favorite_handler, give_rate
+from app.bot.dialogs.dialogs_getters import rate_getter, to_usd_getter, rates_getter
 from app.bot.dialogs.dialogs_states import StartSG, OneRateSG, FavoriteSG
 from app.bot.keyboards.texts import BUTTONS_LEXICON
 from app.bot.lexicon.lexicon_ru import lexicon
@@ -44,7 +36,7 @@ start_dialog = Dialog(
 # Dialog, which is changes buttons order in the one_rate_dialog.
 favorite_dialog = Dialog(
     Window(
-        Const("Избранное"),
+        Const("Выберите валюты, которые будут отображаться в начале."),
         ScrollingGroup(
             Select(
                 Format("{item}"),
@@ -54,10 +46,10 @@ favorite_dialog = Dialog(
                 on_click=favorite_handler,
             ),
             width=4,
-            height=10,  #
+            height=10,
             id="all_rates",
         ),
-        Cancel(Const(lexicon["back_to_main_menu"])),
+        Cancel(Const("Назад")),
         state=FavoriteSG.main,
         getter=rates_getter,
     ),
@@ -79,7 +71,7 @@ one_rate_dialog = Dialog(
             height=10,
             id="all_rates",
         ),
-        Cancel(Const(lexicon["back_to_main_menu"])),
+        Cancel(Const("Назад")),
         state=OneRateSG.get_rate,
         getter=rates_getter,
     ),
@@ -97,7 +89,7 @@ one_rate_dialog = Dialog(
             height=10,
             id="all_rates",
         ),
-        Back(Const(lexicon["back_to_main_menu"])),
+        Back(Const("Назад")),
         getter=to_usd_getter,
         state=OneRateSG.give_rate,
     ),

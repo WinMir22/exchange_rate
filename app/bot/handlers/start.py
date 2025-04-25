@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 @router.message(CommandStart())
 async def start_command(
-    message: Message, user_id: int, full_name: str, manager: DialogManager
+    message: Message, user_id: int, full_name: str, dialog_manager: DialogManager
 ) -> None:
-    await manager.start(state=StartSG.start)
+    await dialog_manager.start(state=StartSG.start)
     logger.info(f"Пользователь {full_name}({user_id}) запустил бота")
