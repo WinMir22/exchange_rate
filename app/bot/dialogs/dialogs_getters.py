@@ -1,9 +1,8 @@
 from aiogram.types import User
 from aiogram_dialog import DialogManager
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.database.db_class import DatabaseCRUD
-from app.services.exchange_rate_services.https_requests import get_exchange_rate
+from app.services import get_exchange_rate
 
 
 async def to_usd_getter(
@@ -15,7 +14,9 @@ async def to_usd_getter(
     data = dialog_manager.dialog_data
     if data["check_rate"].startswith("✅"):
         data["check_rate"] = data["check_rate"][2:]
-    result = await get_exchange_rate(check_code=data["check_rate"], give_code="usd")
+    result = await get_exchange_rate(
+        check_code=data["check_rate"], give_code="usd"
+        )
     return {
         "rates": await database_crud.get_currencies(event_from_user.id),
         "result": result,

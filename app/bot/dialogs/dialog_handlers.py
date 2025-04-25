@@ -1,8 +1,6 @@
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.database.db_class import DatabaseCRUD
 
@@ -19,8 +17,8 @@ async def check_rate(
 
 
 async def give_rate(
-    callback: CallbackQuery, select: Select, manager: DialogManager, item_id: str
-):
+    query: CallbackQuery, slct: Select, manager: DialogManager, item_id: str
+) -> None:
     data = manager.dialog_data
     data["give_rate"], data["value"] = item_id, item_id
     await manager.next()
