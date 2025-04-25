@@ -33,7 +33,7 @@ start_dialog = Dialog(
     )
 )
 
-# Dialog, which is changes buttons order in the one_rate_dialog.
+# Dialog, which is changes buttons order in the exchange_rate_dialog.
 favorite_dialog = Dialog(
     Window(
         Const("Выберите валюты, которые будут отображаться в начале."),
@@ -56,7 +56,7 @@ favorite_dialog = Dialog(
 )
 
 
-one_rate_dialog = Dialog(
+exchange_rate_dialog = Dialog(
     Window(
         Const(lexicon["first_rate"]),
         ScrollingGroup(
